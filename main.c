@@ -42,7 +42,6 @@ int main(void)
 				{
 					printf("Student with the same ID exists already");
 				}
-
 	            break;
 
 	        case DISPLAY:
@@ -85,4 +84,6 @@ int main(void)
 	            printf("Invalid choice. Please enter a number between 1 and 8.\n");
 	    }
 	}
+
+	clear(&list);
 }

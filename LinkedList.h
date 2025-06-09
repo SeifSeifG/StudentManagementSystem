@@ -25,6 +25,9 @@
   * @brief Maximum length for student names (chosen for memory alignment)
   */
 #define MAX_NAME_LENGTH 64
+#define MAX_AGE_LIMIT 100 
+#define MIN_AGE_LIMIT 4
+#define MAX_GPA_LIMIT 4
 
   /**
    * @struct student
@@ -165,5 +168,19 @@ Student* FindHighestGPA(LinkedList* L);
  * @return true if deletion successful, false otherwise
  */
 bool DeleteStudent(LinkedList* L, uint16 key_id);
+
+/**
+ * @brief Clears all student records from the linked list
+ * @param L Pointer to the LinkedList structure to be cleared
+ * @details This function iteratively removes all nodes from the linked list
+ *          by repeatedly deleting the head student until the list is empty.
+ *          It maintains proper memory management by internally calling
+ *          DeleteStudent() which handles node deallocation.
+ * @note The function operates in O(n) time complexity where n is the number
+ *       of students in the list. Each deletion operation maintains the
+ *       integrity of the linked list structure throughout the process.
+ * @see DeleteStudent()
+ */
+void clear(LinkedList* L);
 
 #endif // LINKED_LIST_H

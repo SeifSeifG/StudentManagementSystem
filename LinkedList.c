@@ -40,8 +40,21 @@ void SetupStudent(Student* myStudent)
 	printf("Enter Age: ");
 	scanf("%hu", &(myStudent->age));
 
+	while (myStudent->age > MAX_AGE_LIMIT || myStudent->age < MIN_AGE_LIMIT)
+	{
+		printf("Enter Age: ");
+		scanf("%hu", &(myStudent->age));
+	}
+
 	printf("Enter GPA: ");
 	scanf("%f", &(myStudent->gpa));
+
+	while (myStudent->gpa > MAX_GPA_LIMIT)
+	{
+		printf("Invalid GPA!\n");
+		printf("Enter GPA: ");
+		scanf("%f", &(myStudent->gpa));
+	}
 
 }
 
@@ -90,10 +103,21 @@ void EditStudentInfo(Student* myStudent)
 		case AGE:
 			printf("Enter new age: ");
 			scanf("%hu", &(myStudent->age));
+			while (myStudent->age > MAX_AGE_LIMIT || myStudent->age < MIN_AGE_LIMIT)
+			{
+				printf("Enter Age: ");
+				scanf("%hu", &(myStudent->age));
+			}
 			break;
 		case GPA:
 			printf("Enter new GPA: ");
 			scanf("%f", &(myStudent->gpa));
+			while (myStudent->gpa > MAX_GPA_LIMIT)
+			{
+				printf("Invalid GPA!\n");
+				printf("Enter GPA: ");
+				scanf("%f", &(myStudent->gpa));
+			}
 			break;
 		default:
 			exitFlag = true;
@@ -321,4 +345,12 @@ bool DeleteStudent(LinkedList* L, uint16 key_id)
 		}
 	}
 	return deleted;
+}
+
+void clear(LinkedList* L)
+{
+	while (L->count > 0)
+	{
+		DeleteStudent(L, L->head->data->id);
+	}
 }
