@@ -53,10 +53,9 @@ void EditStudentInfo(Student* myStudent)
 	bool exitFlag = false;
 
 	//to hold the new name if a name edit is required
-	uint8* NewName = (uint8*)calloc(MAX_NAME_LENGTH , sizeof(uint8));
+	char tempName[MAX_NAME_LENGTH];
 
-	//guard against heap overflow
-	if (!NewName) { HeapOverFlowWarning(); }
+	int ch;
 
 	while (!exitFlag)
 	{
@@ -76,9 +75,13 @@ void EditStudentInfo(Student* myStudent)
 		switch(choice)
 		{
 		case NAME:
-			printf("Enter new name: ");
-			fgets(NewName, sizeof(NewName), stdin);
-			setName(myStudent, NewName);
+			while ((ch = getchar()) != '\n' && ch != EOF);
+			printf("Enter student name: ");
+			fgets(tempName, MAX_NAME_LENGTH, stdin);
+
+			// Remove trailing newline inserted by fgets
+			tempName[strcspn(tempName, "\n")] = '\0';
+			setName(myStudent, tempName);
 			break;
 		case ID:
 			printf("Enter new id: ");
@@ -97,7 +100,6 @@ void EditStudentInfo(Student* myStudent)
 			break;
 		}
 	}
-	free(NewName);
 }
 
 // used to set the name for a student
@@ -224,7 +226,7 @@ bool UpdateStudentInfo(LinkedList* L, uint16 key_id)
 	Student* found = SearchByID(L, key_id);
 
 	if (found) {  EditStudentInfo(found);  }
-	else	   { printf("Student with this ID doesn't exist! "); }
+	else	   {  printf("Student with this ID doesn't exist! "); }
 
 	return (bool)found;
 }
@@ -262,6 +264,10 @@ Student* FindHighestGPA(LinkedList* L)
 			//update highest GPA
 			highestGPA = ptr->data->gpa;
 		}
+		else
+		{
+			ptr = ptr->next;
+		}
 	}
 	return found;
 }
@@ -285,6 +291,7 @@ bool DeleteStudent(LinkedList* L, uint16 key_id)
 		ptr->next = NULL;
 		free(ptr);
 		ptr = NULL;
+		L->count --;
 		return true;
 	}
 
@@ -303,6 +310,7 @@ bool DeleteStudent(LinkedList* L, uint16 key_id)
 			ptr->next = NULL;
 			free(ptr);
 			ptr = NULL;
+			L->count--;
 			deleted = true;
 			return true;
 		}

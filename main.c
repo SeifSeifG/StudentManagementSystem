@@ -72,7 +72,8 @@ int main(void)
 	            break;
 
 	        case HIGHEST_GPA:
-	        	printf ("Highest GPA is %f\n",FindHighestGPA(&list));
+	        	printf ("Highest GPA student is :\n");
+				printStudentInfo(FindHighestGPA(&list));
 	            break;
 
 	        case EXIT:
