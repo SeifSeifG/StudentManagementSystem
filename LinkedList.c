@@ -322,10 +322,3 @@ bool DeleteStudent(LinkedList* L, uint16 key_id)
 	}
 	return deleted;
 }
-
-
-
-
-
-
-
